@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+
+        /*импортируем шаблоны для стилизации по ссылке*/
+        .menu-main {
+            /*основные настройки для меню*/
+            list-style: none;
+            /*Универсальное свойство, позволяющее одновременно задать стиль маркера, его положение, а также изображение,
+   которое будет использоваться в качестве маркера. Убираем маркер из списка (точку напротив пунктов)*/
+            margin: 40px 0 5px;
+            /*Устанавливает величину отступа от каждого края элемента. */
+            padding: 25px 0 5px;
+            /*Свойство padding устанавливает внутренние отступы/поля со всех сторон элемента.*/
+            text-align: center;
+            /*расположение текста*/
+            background: white;
+            /*цвет фона*/
+
+        }
+
+        .menu-main li {
+            display: inline-block;
+        }
+
+        .menu-main li:after {
+            content: "|";
+            color: #606060;
+            display: inline-block;
+            /*Это значение – означает элемент, который продолжает находиться в строке (inline),
+   но при этом может иметь важные свойства блока.*/
+            vertical-align: top;
+            /*выравнивание элемента*/
+        }
+
+        .menu-main li:last-child:after {
+            content: none;
+        }
+
+        /*Псевдокласс last-child позволяет задать отдельные стили для последнего элемента, 
+в нашем случае – для последнего псевдоэлемента. Мы просто указываем пустое значение у свойства content и последняя линия пропала.*/
+        .menu-main a {
+            /* то, что качается ссылок*/
+            text-decoration: none;
+            /*- когда ты делаешь ссылки, и у тебя с низу идет подчеркивание текста, этот код убирает подчеркивание.*/
+            font-family: 'Ubuntu Condensed', sans-serif;
+            /*тип шрифта*/
+            letter-spacing: 2px;
+            /*межбуквенное расстояние для текущего шрифта*/
+            position: relative;
+            /*Устанавливает способ позиционирования элемента относительно окна браузера или других объектов на веб-странице
+  Положение элемента устанавливается относительно его исходного места. Добавление свойств left, top, right и bottom изменяет позицию 
+  элемента и сдвигает его в ту или иную сторону от первоначального расположения.*/
+            padding-bottom: 20px;
+            /*Свойство padding-bottom устанавливает значение поля от нижнего края содержимого элемента. */
+            margin: 0 34px 0 30px;
+            font-size: 17px;
+            /*размер шрифта*/
+            text-transform: uppercase;
+            /*настройка ркгистра текста (верхний регистр)*/
+            display: inline-block;
+            transition: color .2s;
+            /*Свойство transition используется, когда нам нужно плавно изменить CSS-свойства между двумя состояниями элемента. Например, при наведении мышкой.*/
+        }
+
+        .menu-main a,
+        .menu-main a:visited {
+            color: #9d999d;
+        }
+
+        /*Цвет текста ссылки на которую нажимали*/
+
+
+        .menu-main a:before,
+        /*Псевдоэлемент :before применяется для отображения желаемого контента до содержимого элемента, к которому он добавляется. 
+Псевдоэлемент, который используется для вывода желаемого текста после содержимого элемента, к которому он добавляется.*/
+        .menu-main a:after {
+            content: "";
+            /*задаём пустое пространство внизу блока с помощью пустой строки*/
+            position: absolute;
+            height: 4px;
+            top: auto;
+            right: 50%;
+            bottom: -5px;
+            left: 50%;
+            background: #feb386;
+            transition: .8s;
+            /*степень плавности появления нижней черты */
+        }
+
+        /*задаём ниже настройки для подчёркивания, которое появляется при подведении курсора*/
+        .menu-main a:hover:before,
+        .menu-main .current:before {
+            left: 0;
+        }
+
+        /*CSS псевдокласс :hover срабатывает, 
+когда пользователь наводит на элемент мышью, но не обязательно активирует его.*/
+        .menu-main a:hover:after,
+        .menu-main .current:after {
+            right: 0;
+        }
+
+        @media (max-width: 550px) {
+            .menu-main {
+                padding-top: 0;
+            }
+
+            .menu-main li {
+                display: block;
+            }
+
+            .menu-main li:after {
+                content: none;
+            }
+
+            .menu-main a {
+                padding: 25px 0 20px;
+                margin: 0 30px;
+            }
+        }
+
+        * {
+            /*Селектор (в данном случае - *) определяет, к какому элементу применять то или иное CSS-правило.
+  Выбирает все элементы. По желанию, он может быть ограничен определённым пространством имён или относиться ко всему пространству имён.*/
+            box-sizing: border-box;
+            /*Согласно спецификации CSS ширина блока складывается из ширины содержимого (width), 
+    значений margin, padding и border. Аналогично обстоит и с высотой блока. 
+    Свойство box-sizing позволяет изменить этот алгоритм, чтобы свойства width и height задавали размеры не содержимого,
+    а размеры блока. 
+    border-box - Свойства width и height включают в себя значения padding и border, но не margin. */
+        }
+
+        body {
+            background-image: url(https://wiki.warthunder.ru/images/thumb/7/7c/Leopard_2A6._%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D0%BE%D0%B9_%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2.png/1600px-Leopard_2A6._%D0%98%D0%B3%D1%80%D0%BE%D0%B2%D0%BE%D0%B9_%D1%81%D0%BA%D1%80%D0%B8%D0%BD%D1%88%D0%BE%D1%82_2.png);
+
+
+
+            margin: 0;
+            font-family: Arial;
+        }
+
+        /* Сетка: четыре равных столбца, находящиеся рядом друг с другом. */
+        .column {
+            float: left;
+            width: 25%;
+            padding: 10px;
+        }
+
+        /* Стилизуем изображения внутри сетки */
+        .column img {
+            opacity: 0.8;
+            /*Непрозрачность текста элемента, где 1 — непрозрачный, а 0 — полностью прозрачный.*/
+            cursor: pointer;
+            /*Позволяет контролировать внешний вид курсора в элементе*/
+        }
+
+        .column img:hover {
+            opacity: 1;
+        }
+
+        /* Очистить место после столбцов */
+        .row:after {
+            content: "";
+            display: table;
+            /*В сочетании с float и position определяет тип блока или блоков, которые создаются для элемента.*/
+            clear: both;
+            /*Указывает, какие стороны блока(ов) элемента не могут быть смежными с более ранним плавающим блоком.
+    Свойство «очистить» не учитывает плавающие элементы внутри самого элемента или в других контекстах форматирования блока.*/
+        }
+
+        /* Расширяющийся контейнер изображения */
+        .container {
+            position: relative;
+            display: none;
+        }
+
+
+        /* Закрывающая кнопка внутри развернутого изображения*/
+        .closebtn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: red;
+            font-size: 35px;
+            cursor: pointer;
+        }
+
+        .button_for_change_color {
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 550;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-color: aliceblue;
+            color: #feb386;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul class="menu-main">
+
+        <li><a href="qqwwe.html">Work</a></li>
+        <li><a href="#text">Об игре</a></li>
+        <li><a href="#buy">Окупаемость</a></li>
+        <li><a href="hhdq.html">Связаться с нами</a></li>
+    </ul>
+
+    <div style="text-align:center">
+        <!--блочный элемент, с помощью style="text-align:center" задали расположение в центре-->
+        <h2>Warpath Tank Gallery</h2> <!--заголовок-->
+        <p>Click on the images below:</p><!-- параграф-->
+    </div>
+
+    <!-- The four columns -->
+    <div class="row">
+        <div class="column">
+            <img src="https://forum-cdn2.lilithgames.com/uploads/wgame-global-prod/3d82aae2-d354-4470-b8d8-0c0ec2492917.jpg?x-oss-process=image/resize,w_500&wd=1080&hd=2400"
+                alt="Nature" style="width:50%" onclick="myFunction(this);">
+            <!--img - для добавления картинки, src - для добавления ссылки, атрибут alt устанавливает альтернативный текст для области изображения.
+    Такой текст отображается в виде всплывающей подсказки при наведении курсора мыши на область. 
+    style="width:" - устанавливаем ширину с помощью css.
+     onclick - делаем картинку интерактивной, при нажатии будет задействована функция из js-->
+        </div>
+        <div class="column">
+            <img src="https://imv2-gl.lilithgame.com/p/10048/0/11137202/230413/83c8caa5ba5239f3f440053f991a25bc.jpg?x-oss-process=image/resize,w_500&wd=828&hd=1792"
+                onclick="myFunction(this);" style="width:50%">
+        </div>
+        <div class="column">
+            <img src="https://imv2-gl.lilithgame.com/p/10048/0/3683138/230406/708fe66f48b5b4d964dbb7f34d8b5534.jpg?x-oss-process=image/resize,w_500&wd=1080&hd=2400"
+                alt="Mountains" style="width:50%" onclick="myFunction(this);">
+        </div>
+        <div class="column">
+            <img src="https://imv2-gl.lilithgame.com/p/10048/0/1422578/230411/1efdaf08b88d57564c4a420445d7fa9a.jpg?x-oss-process=image/resize,w_500&wd=1080&hd=2340"
+                alt="Lights" style="width:50%" onclick="myFunction(this);">
+        </div>
+    </div>
+
+    <div class="container">
+        <span onclick="this.parentElement.style.display='none'" class="closebtn">×</span>
+        <!--Тег <span> (от англ. span — интервал) предназначен для выделения отдельных строк, -->
+        <!--символов или других строчных элементов для дальнейшего изменения их оформления с помощью стилей.-->
+        <img id="expandedImg" style="width:50%">
+        <!--добавляем внизу место для картинки, на которую нажмёт пользователь,-->
+        <!-- делаем ссылку через id -->
+
+    </div>
+    <button onclick="document.location='index.html'">Переход по ссылке</button>
+    <button onclick="change_color()" class="button_for_change_color"
+        style="position:absolute; top:20px; right:20px">сменить цвет</button>
+
+    <div style="position: absolute; top:1700px; color:gold">
+        <a name="text"></a>
+        <p>Warpath - это новая мобильная стратегическая игра в реальном времени времен Второй мировой войны,
+            разработанная компанией Lilithgames. Игра предлагает выдающиеся сражения RTS на реалистичной местности
+            карты, которые разработаны на основе реальных полей сражений.
+            Когда вы впервые запустите игру, вы окажетесь на карте открытого поля вместе с тысячами других игроков.
+            В игре есть 3 лагеря: Vanguard Division (Германия), Camp Libery (Америка) и Martyrs’ Watch (Советский Союз).
+            Вы можете выбрать любой лагерь, чтобы начать создавать свою армию.
+            Вступайте в любые глобальные альянсы, создавайте базы, укрепляйте свои армии и начинайте завоевывать мир!
+        </p>
+
+
+    </div>
+    <div style="position: absolute; top:2900px; color:gold">
+        <a name="buy"></a>
+        <p>В варпатче можно обменитваться акаунтами, но правилами игры купля и продажа запрещена, по этому warpath,
+            стараеться присечь , и если игрок публично говорит об этом на него накладываются
+            по этапно. Сначало игрок получает блокировку на время в чате и публикацию смс, после чего он получает
+            оповещение предупреждающие о блокирование чата на всё время.
+            Не смотря на это аккаунты продают по хорошей цене </p>
+
+
+    </div>
+
+    <script>
